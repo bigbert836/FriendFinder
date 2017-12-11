@@ -338,15 +338,13 @@
 
 <script type="text/javascript">
 
-var score = 0;
-
 function validation(){
   if($("input[type='radio'][name='q1']:checked").val() === undefined || $("input[type='radio'][name='q2']:checked").val() === undefined || $("input[type='radio'][name='q3']:checked").val() === undefined || $("input[type='radio'][name='q4']:checked").val() === undefined || $("input[type='radio'][name='q5']:checked").val() === undefined || $("input[type='radio'][name='q6']:checked").val() === undefined || $("input[type='radio'][name='q7']:checked").val() === undefined || $("input[type='radio'][name='q8']:checked").val() === undefined || $("input[type='radio'][name='q9']:checked").val() === undefined || $("input[type='radio'][name='q10']:checked").val() === undefined || $("#name").val() === "" || $("#photo").val() === ""){
     alert("Please fill out all fields before submitting!");
   } else {
     var userData = {
       name: $("#name").val(),
-      phot: $("#photo").val(),
+      photo: $("#photo").val(),
       scores: [
         parseFloat($("input[type='radio'][name='q1']:checked").val()),
         parseFloat($("input[type='radio'][name='q2']:checked").val()),
@@ -360,8 +358,9 @@ function validation(){
         parseFloat($("input[type='radio'][name='q10']:checked").val())
       ]
     };
-    score = userData.scores.reduce(getSum);
-    console.log(score);
+    $.post("/api/friends", userData, function(data){
+      console.log(data);
+    })
   }
 }
 
@@ -370,10 +369,7 @@ function validation(){
       validation();
     });
 
-    //Fuctions to find total
-    function getSum(total, num) {
-      return total + num;
-    }
+    
   
 </script>
 
